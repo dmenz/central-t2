@@ -61,7 +61,6 @@ urlpatterns = [
     path('', views.home, name='home-page'),
     path('admin/', admin.site.urls), # remover antes do site ir pra produção
     path('MeuApp/', views.home),
-    path('contatos/', include('contatos.urls')),
     path('carros/', include('carros.urls')),
     path('accounts/', include('accounts.urls')),
     path('seguranca/', views.homeSec, name='sec-home'),

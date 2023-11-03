@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # incluídos
     'MeuSite',
-    'contatos',
     'rest_framework',   # REST
     'carros',
     'corsheaders',      # CORS
@@ -148,7 +147,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'MeuSite/static'),
-    os.path.join(BASE_DIR, 'contatos/static'),
+    #os.path.join(BASE_DIR, 'contatos/static'),
 ]
 
 # Default primary key field type
