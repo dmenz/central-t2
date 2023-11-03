@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Atualiza Contato</title>
+    <link rel="stylesheet" href="{% static 'contatos/css/estilo.css' %}">
+</head>
+<body>
+    {% include 'contatos/links.html' %}
+    <!--
+    <h1>Cria um contato</h1>
+    <h1>Atualiza um contato</h1>
+    -->
+    <h1>{{ tituloPagina }}</h1>
+    <form action="" method="POST">
+        <fieldset class="caixa">
+            <legend>Dados do contato</legend>
+            {% csrf_token %}
+            <table class='formulario'>
+                {{ formulario.as_table }}
+            </table>
+            <button type="submit">{{ nomeBotao }}</button>
+        </fieldset>
+    </form>
+</body>
+</html>

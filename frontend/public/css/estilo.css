@@ -1,0 +1,11 @@
+.mesmaLinha {
+    display: inline;
+}
+
+.invisivel {
+    display: none;
+}
+
+.visivel {
+    display: inline;
+}
