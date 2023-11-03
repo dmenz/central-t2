@@ -16,6 +16,6 @@ class DBRouter():
         return None
     
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        if app_label == 'MeuSite':
+        if app_label == 'backend':
             return db == 'DBMTCars'
         return None

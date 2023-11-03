@@ -1,4 +1,4 @@
-"""MeuSite URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from MeuSite import views
+from backend import views
 from django.urls.conf import include
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
@@ -34,7 +34,7 @@ from rest_framework.schemas import get_schema_view
 from drf_yasg.views import get_schema_view as yasg_schema_view
 from drf_yasg import openapi
 
-app_name = "MeuSite"
+app_name = "backend"
 
 schema_view = yasg_schema_view(
     openapi.Info(
