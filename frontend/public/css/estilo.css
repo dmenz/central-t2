@@ -9,3 +9,88 @@
 .visivel {
     display: inline;
 }
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/fundo.png');
+    background-size: cover;
+}
+
+.logo {
+    padding: 1%;
+    background-color: darkgray;
+}
+
+.logo img{
+    height: 60px;
+}
+
+.top_menu {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+     'Lucida Sans', Arial, sans-serif;
+    font-size: large;
+    font-weight: bolder;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: darkgray;
+    display: inline-block; /* Somente inline não respeita margens */
+    width: 98%; /* Tabelas precisam da largura para expandir até o fim! */
+    color: white;
+}
+
+.top_menu a{
+    color: white;
+    text-decoration: none;
+}
+
+.top_menu a:focus {
+    color: #019DD6; /* Usando o azul que é a cor exata do logo */
+}
+
+.top_menu a:hover {
+    text-decoration: underline;
+}
+
+.conteudo {
+    flex: 1;
+    position: relative;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.6;
+}
+
+.brasao {
+    padding: 1%;
+    text-align: right;
+}
+
+.brasao img{
+    height: 200px;
+}
+
+/* Somente th dentro de uma tag da classe formulário */
+.formulario th {
+    text-align: right;
+    vertical-align: text-top;
+} 
+
+#containerPermissao {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
