@@ -1,13 +1,16 @@
 onload = () => {
+    
     // Carrega os dados do banco de dados
     // e preenche o formulário
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const idPlace = document.getElementById('id') as HTMLSpanElement
+    
     if(id) {
         console.log('id = ', id);
         idPlace.innerHTML = id;
-        fetch(backendAddress + 'carros/umcarro/' + id + '/',
+        
+        fetch(backendAddress + 'artigos/umartigo/' + id + '/',
         {
             method: 'GET', 
             headers: {
@@ -15,34 +18,43 @@ onload = () => {
                 'Content-Type': 'application/json'
             },
         })
+        
         .then(response => response.json())
-        .then(carro => {
-            let campos = ['id', 'name', 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb'];
+        
+        .then(artigo => {
+            let campos = ['nome', 'ano_publicacao', 'autores', 'link'];
             for(let i=0; i<campos.length; i++) {
-                (document.getElementById(campos[i]) as HTMLInputElement).value = carro[campos[i]];
+                (document.getElementById(campos[i]) as HTMLInputElement).value = artigo[campos[i]];
             }
         })
+        
         .catch(erro => {
             console.log('Deu erro: ' + erro);
         });
+
     } else {
         idPlace.innerHTML = 'URL mal formada: ' + window.location;
     }
+    
     (document.getElementById('atualiza') as HTMLButtonElement)
-        .addEventListener('click', (evento) => {
+    .addEventListener('click', (evento) => {
+        
         evento.preventDefault();
         const form = document.getElementById('meuFormulario') as HTMLFormElement;
         const elements = form.elements;
+        
         let data: Record<string, string> = {};
         for (let i = 0; i < elements.length; i++) {
             const element = elements[i] as HTMLInputElement;
             data[element.name] = element.value;
         }
-        fetch(backendAddress + "carros/umcarro/" + id + '/', {
+
+        fetch(backendAddress + "artigos/umartigo/" + id + '/', {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' },
         })
+        
         .then(response => {
             if(response.ok) {
                 (document.getElementById('mensagem') as HTMLDivElement).innerHTML = 'Sucesso'
@@ -51,6 +63,7 @@ onload = () => {
                 + response.status + " " + response.statusText
             }
         })
+        
         .catch(erro => { console.log('Deu erro: ' + erro)
         })
     })
