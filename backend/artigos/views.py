@@ -26,6 +26,7 @@ class ArtigoView(APIView):
     def put(self, request, id_arg):
         pass
 
+
 # Função para combinar as entradas dos campos de busca para filtrar os
 # resultados da busca.
 def le_parametros_filtro(request):
@@ -43,6 +44,7 @@ def le_parametros_filtro(request):
         except:
             pass
         return filterquery
+
 
 class ArtigosView(APIView):
     
@@ -78,6 +80,7 @@ class ArtigosView(APIView):
     def delete(self, request):
         pass
 
+
 class AutorView(APIView):
     @swagger_auto_schema()
     def get(self, request):
@@ -95,6 +98,7 @@ class AutorView(APIView):
     def delete(self, request):
         pass
     
+
 class AutoresView(APIView):
     @swagger_auto_schema(
         operation_summary='Lista todos os autores',
