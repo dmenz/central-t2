@@ -161,3 +161,6 @@ cython_debug/
 
 # Learning related
 first_steps.txt
+
+# Compiled javascript files
+javascript/
