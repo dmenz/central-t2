@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def home(request):
-    return render(request, 'backend/home.html')
+    return render(request, 'backend/index.html')
 
 
 def homeSec(request):
