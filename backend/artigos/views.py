@@ -96,6 +96,21 @@ class AutorView(APIView):
         pass
     
 class AutoresView(APIView):
-    @swagger_auto_schema()
+    @swagger_auto_schema(
+        operation_summary='Lista todos os autores',
+        operation_description="Obter informações sobre todos os autores",
+        manual_parameters = [ 
+            openapi.Parameter(
+                name='autor',
+                in_=openapi.IN_QUERY,
+                type='string',
+                required=False,),
+            ],
+        request_body=None, # opcional
+        responses={200: AutorSerializer(many=True)}
+    )
     def get(self, request):
-        pass
+        parametros = le_parametros_filtro(request)
+        queryset = Autor.objects.all().filter(**parametros)
+        serializer = AutorSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
