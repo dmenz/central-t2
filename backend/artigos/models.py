@@ -17,21 +17,14 @@ class Autor(models.Model):
 class Artigo(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, 
-                            help_text='Insira o título do artigo',
-                            verbose_name='Título do artigo*')
-    ano_publicacao = models.CharField(max_length=4, 
-                                      help_text='Insira o ano de publicação' +
-                                       ' do artigo',
-                                      verbose_name='Ano de publicação*',
-                        validators=[MinLengthValidator(4,
-                            'Campo precisa ter 4 dígitos.')])
-    autores = models.ManyToManyField(Autor, help_text="Para selecionar mais" +
-                                     " de um autor, segure" +
-                                     " a tecla Ctrl ao clicar.",
-                                     verbose_name="Autores*")
-    link = models.URLField(blank=True,
-            verbose_name='Link',
-            help_text= 'Insira o link para o artigo (Opcional)')
+                            verbose_name='Título do artigo')
+    ano_publicacao = models.CharField(
+            max_length=4,
+            verbose_name='Ano de publicação',
+            validators=[MinLengthValidator(4, 'Campo precisa ter 4 dígitos.')]
+            )
+    autores = models.ManyToManyField(Autor, verbose_name="Autores")
+    link = models.URLField(blank=True, verbose_name='Link')
 
     class Meta:
         ordering = ["nome"]
