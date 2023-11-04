@@ -1,12 +1,13 @@
 onload = function () {
     (document.getElementById('insere') as HTMLButtonElement). 
-        addEventListener('click', () => {location.href = 'insereCarro.html'});
+        addEventListener('click', () => {location.href = 'insereArtigo.html'});
     (document.getElementById('remove') as HTMLButtonElement).
-        addEventListener('click', remove);
-    exibeListaDeCarros(); // exibe lista de carros ao carregar a página
+        addEventListener('click', removeArtigo);
+    exibeListaDeArtigos(); // exibe lista de Artigos ao carregar a página
 }
 
-const remove = () => {
+
+const removeArtigo = () => {
     let idArray =  [];
     let checkboxes = document.getElementsByTagName('input');
     for (let i = 0; i < checkboxes.length; i++) {
@@ -14,7 +15,7 @@ const remove = () => {
             idArray.push(checkboxes[i].value)
         }
     }
-    fetch(backendAddress + 'carros/lista/', {
+    fetch(backendAddress + 'artigos/lista/', {
         method: 'DELETE', 
         headers: {
             'Authorization': tokenKeyword + localStorage.getItem('token'),
@@ -22,25 +23,27 @@ const remove = () => {
         },
         body: JSON.stringify(idArray)
     })
-    .then(response => { exibeListaDeCarros() })
+    .then(response => { exibeListaDeArtigos() })
     .catch(error => { console.log(error) })
 }
 
-function exibeListaDeCarros() {
-    fetch(backendAddress + "carros/lista/")
+
+function exibeListaDeArtigos() {
+    fetch(backendAddress + "artigos/lista/")
+    
     .then(response => response.json())
-    .then(carros => {
-        let campos = ['name', 'mpg', 'cyl', 'disp', 'hp', 'drat',
-                      'wt', 'qsec', 'vs', 'am', 'gear', 'carb'];
+    
+    .then(Artigos => {
+        let campos = ['nome', 'ano_publicacao', 'autores', 'link'];
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
-        for (let carro of carros) {
+        for (let Artigo of Artigos) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
             for (let i = 0; i < campos.length; i++) {
                 let td = document.createElement('td') as HTMLTableCellElement;
                 let href = document.createElement('a') as HTMLAnchorElement;
-                href.setAttribute('href', 'update.html?id=' + carro['id']);
-                let texto = document.createTextNode(carro[campos[i]]) as Text;
+                href.setAttribute('href', 'update.html?id=' + Artigo['id']);
+                let texto = document.createTextNode(Artigo[campos[i]]) as Text;
                 href.appendChild(texto);
                 td.appendChild(href);
                 tr.appendChild(td);
@@ -48,13 +51,14 @@ function exibeListaDeCarros() {
             let checkbox = document.createElement('input') as HTMLInputElement;
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('name', 'id');
-            checkbox.setAttribute('value', carro['id']);
+            checkbox.setAttribute('value', Artigo['id']);
             let td = document.createElement('td') as HTMLTableCellElement;
             td.appendChild(checkbox);
             tr.appendChild(td);
             tbody.appendChild(tr);
         }
     })
+    
     .catch(error => {
         console.error("Erro:", error);
     });
