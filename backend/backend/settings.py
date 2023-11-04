@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts',         # nosso app de AAA
     'rest_framework.authtoken',
     'django_rest_passwordreset',
+    'artigos',
 ]
 
 MIDDLEWARE = [

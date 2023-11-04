@@ -51,7 +51,7 @@ def revert_migration(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
             ('auth', '__latest__'),
-            ('MeuSite', '0001_initial'),
+            ('backend', '0001_initial'),
     ]
 
     operations = [
