@@ -1,11 +1,14 @@
 onload = (evento) => {
     (document.getElementById('recuperaSenha') as HTMLButtonElement).addEventListener('submit', (evento) => {
+        
         evento.preventDefault();
+        
         fetch(backendAddress + 'accounts/password_reset/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify({ 'email': (document.getElementById('email') as HTMLInputElement).value, })
         })
+        
         .then(response => {
             if(response.ok) {
                 window.location.assign('passwordResetDone.html');
@@ -14,6 +17,7 @@ onload = (evento) => {
                     + response.statusText;
             }
         })
+        
         .catch(erro => { console.log(erro) });
     });
 }

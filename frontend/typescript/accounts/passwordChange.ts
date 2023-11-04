@@ -15,6 +15,7 @@ window.addEventListener('load', (evento) => {
                 new_password2: (document.getElementById('new_password2') as HTMLInputElement).value,
             }),
         })
+        
         .then((response: Response) => {
             if (response.ok) {
                 // Successful response, handle accordingly
@@ -26,6 +27,7 @@ window.addEventListener('load', (evento) => {
                 throw new Error('Erro ao trocar a senha: ' + response)
             }
         })
+        
         .then((data: {token: string}) => {
             const token: string = data.token;
             localStorage.setItem('token', token);
@@ -33,6 +35,7 @@ window.addEventListener('load', (evento) => {
             // 3 opções possíveis (e testadas)
             window.location.replace('passwordChangeDone.html');
         })
+        
         .catch (error => {
             // Network error or other exception
             console.error('Ocorreu um erro:', error);
