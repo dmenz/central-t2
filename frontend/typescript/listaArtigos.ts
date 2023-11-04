@@ -28,37 +28,33 @@ const removeArtigo = () => {
 }
 
 
+
 function exibeListaDeArtigos() {
-    fetch(backendAddress + "artigos/lista/")
-    
+    const appendTextCell = (tr: HTMLTableRowElement, text: string) => {
+        let td = document.createElement('td') as HTMLTableCellElement;
+        td.appendChild(document.createTextNode(text));
+        tr.appendChild(td);
+    }
+
+    fetch(backendAddress + "artigos/artigos/")
     .then(response => response.json())
-    
     .then(Artigos => {
-        let campos = ['nome', 'ano_publicacao', 'autores', 'link'];
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
         for (let Artigo of Artigos) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
-            for (let i = 0; i < campos.length; i++) {
-                let td = document.createElement('td') as HTMLTableCellElement;
-                let href = document.createElement('a') as HTMLAnchorElement;
-                href.setAttribute('href', 'update.html?id=' + Artigo['id']);
-                let texto = document.createTextNode(Artigo[campos[i]]) as Text;
-                href.appendChild(texto);
-                td.appendChild(href);
-                tr.appendChild(td);
-            }
-            let checkbox = document.createElement('input') as HTMLInputElement;
-            checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('name', 'id');
-            checkbox.setAttribute('value', Artigo['id']);
-            let td = document.createElement('td') as HTMLTableCellElement;
-            td.appendChild(checkbox);
-            tr.appendChild(td);
+            let autores = Artigo['autores']
+                .map((autor: {id: number, nome: string}) => autor.nome)
+                .join(', ');
+            autores = (autores === "") ? "Sem autores cadastrados" : autores;
+
+            appendTextCell(tr, Artigo['nome']);
+            appendTextCell(tr, Artigo['ano_publicacao']);
+            appendTextCell(tr, autores);
+            
             tbody.appendChild(tr);
         }
     })
-    
     .catch(error => {
         console.error("Erro:", error);
     });
