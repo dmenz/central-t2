@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from artigos.models import Autor, Artigo
-from artigos.serializers import AutorSerializer, ArtigoSerializer
+from artigos.serializers import ArtigoSerializer, AutorSerializer, ArtigoGetSerializer
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -14,13 +14,46 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 class ArtigoView(APIView):
 
-    @swagger_auto_schema()
+    @swagger_auto_schema(
+        operation_summary='Criar artigo',
+        operation_description="Criar um novo artigo",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'nome': openapi.Schema(
+                    example='Artigo 1', 
+                    description='Título do artigo',
+                    type=openapi.TYPE_STRING,
+                    ),
+                'ano_publicacao': openapi.Schema(
+                    example='2023',
+                    description='Ano de publicação',
+                    type=openapi.TYPE_STRING,
+                    ),
+                'autores': openapi.Schema(
+                    example=[1,2],
+                    description='IDs dos autores do artigo',
+                    type=openapi.TYPE_ARRAY,
+                    items=openapi.Items(type=openapi.TYPE_INTEGER)),
+                'link': openapi.Schema(
+                    example='https://www.google.com',
+                    description='Link',
+                    type=openapi.TYPE_STRING
+                    ),
+            },
+            required=['nome', 'ano_publicacao', 'autores'],
+        ),
+        responses={201: ArtigoSerializer(), 400: 'Dados errados',},
+    )
     def post(self, request):
-        pass
+        serializer = ArtigoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @swagger_auto_schema()
     def put(self, request, id_arg):
@@ -64,12 +97,12 @@ class ArtigosView(APIView):
                 required=False,)
             ],
         request_body=None, # opcional
-        responses={200: ArtigoSerializer(many=True)}
+        responses={200: ArtigoGetSerializer(many=True)}
     )
     def get(self, request):
         parametros = le_parametros_filtro(request)
         queryset = Artigo.objects.all().filter(**parametros)
-        serializer = ArtigoSerializer(queryset, many=True)
+        serializer = ArtigoGetSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @api_view(('DELETE',))
@@ -88,7 +121,12 @@ class AutorView(APIView):
 
     @swagger_auto_schema()
     def post(self, request):
-        pass
+        serializer = AutorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema()
     def put(self, request):
