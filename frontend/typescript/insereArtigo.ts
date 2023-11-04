@@ -1,8 +1,10 @@
 onload = () => {
     (document.getElementById('insere') as HTMLButtonElement).addEventListener('click', evento => {
         evento.preventDefault();
+        
         // pega todos os elementos do formulário
         const elements = (document.getElementById('meuFormulario') as HTMLFormElement).elements;
+        
         // dicionário vazio
         let data: Record<string, string> = {};
         // preenche o dicionário com os pares nome/valor
@@ -10,6 +12,7 @@ onload = () => {
             const element = elements[i] as HTMLInputElement;
             data[element.name] = element.value;
         }
+        
         // envia os dados para o backend
         fetch(backendAddress + "artigos/umartigo/", {
                 method: 'POST', 
@@ -20,6 +23,7 @@ onload = () => {
                 body: JSON.stringify(data)
             }
         )
+        
         .then(response => {
                 let lugar = (document.getElementById('mensagem') as HTMLDivElement)
                 if(response.ok) {
@@ -29,6 +33,7 @@ onload = () => {
                 }
             }
         )
-    .catch(error => { console.log(error) })
+        
+        .catch(error => { console.log(error) })
     });
 }
