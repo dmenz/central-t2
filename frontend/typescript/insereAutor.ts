@@ -11,7 +11,7 @@ onload = () => {
             data[element.name] = element.value;
         }
         // envia os dados para o backend
-        fetch(backendAddress + "carros/umcarro/", {
+        fetch(backendAddress + "autores/umautor/", {
                 method: 'POST', 
                 headers: {
                     'Authorization': tokenKeyword + localStorage.getItem('token'),
@@ -23,9 +23,9 @@ onload = () => {
         .then(response => {
                 let lugar = (document.getElementById('mensagem') as HTMLDivElement)
                 if(response.ok) {
-                    lugar.innerHTML = 'Dados inseridos com sucesso';
+                    lugar.innerHTML = 'Dados de autoria inseridos com sucesso';
                 } else {
-                    lugar.innerHTML = 'Dados inseridos com erro';
+                    lugar.innerHTML = 'Dados de autoria com erro';
                 }
             }
         )
