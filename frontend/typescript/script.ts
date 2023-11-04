@@ -20,7 +20,7 @@ const remove = () => {
             'Authorization': tokenKeyword + localStorage.getItem('token'),
             'Content-Type': 'application/json'
         },
-    body: JSON.stringify(idArray)
+        body: JSON.stringify(idArray)
     })
     .then(response => { exibeListaDeCarros() })
     .catch(error => { console.log(error) })
