@@ -6,8 +6,13 @@ class AutorSerializer(serializers.ModelSerializer):
         model = Autor
         fields = '__all__'
 
-class ArtigoSerializer(serializers.ModelSerializer):
+class ArtigoGetSerializer(serializers.ModelSerializer):
     autores = serializers.SlugRelatedField(many=True, read_only=True, slug_field='nome')
     class Meta:
         model = Artigo
         fields = ('id', 'nome', 'ano_publicacao', 'link', 'autores')
+
+class ArtigoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artigo
+        fields = '__all__'
