@@ -94,3 +94,19 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+#tartigos tr {
+    height: 32px;
+}
+#tartigos {
+    border-style: none;
+}
+#idtbody tr:hover {
+    background-color: lightgray;
+}
+/* icones de acessar, editar e excluir  artigo */
+#idtbody img{
+    height: 30px;
+    vertical-align: middle;
+    margin: 0px 3px;
+}

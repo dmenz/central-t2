@@ -53,15 +53,14 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/v1/', include(routers.DefaultRouter().urls)),
     path('openapi', get_schema_view(
-        title="API para Carros",
-        description="API para obter dados dos carros",),
+        title="API para Artigos",
+        description="API para obter dados dos artigos",),
         name='openapi-schema'
     ),
     
     path('', views.home, name='home-page'),
     path('admin/', admin.site.urls),
     path('MeuApp/', views.home),
-    path('carros/', include('carros.urls')),
     path('artigos/', include('artigos.urls')),
     path('accounts/', include('accounts.urls')),
     path('seguranca/', views.homeSec, name='sec-home'),
