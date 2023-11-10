@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    build: ./app
+    build: ./backend
     command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
