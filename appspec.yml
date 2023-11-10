@@ -5,6 +5,6 @@ files:
    destination: /home/ubuntu/central-t2
 hooks:
   ApplicationStart:
-   - location: scripts/start_server
+   - location: start.sh
      timeout: 300
      runas: root
