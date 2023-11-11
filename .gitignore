@@ -163,4 +163,6 @@ cython_debug/
 first_steps.txt
 
 # Compiled javascript files
-javascript/
+frontend/public/javascript/*
+!frontend/public/javascript/accounts
+frontend/public/javascript/accounts/*
