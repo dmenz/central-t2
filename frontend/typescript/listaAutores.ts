@@ -42,7 +42,12 @@ function exibeListaDeAutores() {
             let tr = document.createElement('tr') as HTMLTableRowElement;
             
             appendTextCell(tr, Autor.nome);
-            appendTextCell(tr, Autor.id);
+            
+            // TODO: valor abaixo é provisório, deve ser quantidade de artigos
+            let qtd = document.createElement('td') as HTMLTableCellElement;
+            qtd.style.textAlign = "center";
+            qtd.innerText = "7";
+            tr.appendChild(qtd);
             
             // Ícones de ações:
             let tdAções = document.createElement('td') as HTMLTableCellElement;

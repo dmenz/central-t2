@@ -35,7 +35,11 @@ function exibeListaDeAutores() {
         for (let Autor of Autores) {
             let tr = document.createElement('tr');
             appendTextCell(tr, Autor.nome);
-            appendTextCell(tr, Autor.id);
+            // TODO: valor abaixo é provisório, deve ser quantidade de artigos
+            let qtd = document.createElement('td');
+            qtd.style.textAlign = "center";
+            qtd.innerText = "7";
+            tr.appendChild(qtd);
             // Ícones de ações:
             let tdAções = document.createElement('td');
             tdAções.style.textAlign = "center";
