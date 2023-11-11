@@ -161,8 +161,3 @@ cython_debug/
 
 # Learning related
 first_steps.txt
-
-# Compiled javascript files
-frontend/public/javascript/*
-!frontend/public/javascript/accounts
-frontend/public/javascript/accounts/*
