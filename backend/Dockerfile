@@ -19,7 +19,6 @@ WORKDIR /app
 
 COPY . .
 RUN pip3 install -r requirements.txt --no-cache-dir
-RUN 
 CMD python3 manage.py collectstatic --noinput \
     && python3 manage.py migrate \
     && service nginx start \
