@@ -30,12 +30,12 @@ function exibeListaDeAutores() {
     fetch(backendAddress + "artigos/autores/")
         .then(response => response.json())
         .then(Autores => {
-        let campos = ['nome'];
         let tbody = document.getElementById('idtbody');
         tbody.innerHTML = "";
         for (let Autor of Autores) {
             let tr = document.createElement('tr');
             appendTextCell(tr, Autor.nome);
+            appendTextCell(tr, Autor.id);
             // Ícones de ações:
             let tdAções = document.createElement('td');
             tdAções.style.textAlign = "center";
