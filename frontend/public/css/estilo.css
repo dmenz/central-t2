@@ -95,18 +95,36 @@ body {
     text-align: center;
 }
 
-#tartigos tr {
+#lista th {
+    text-align: left;
     height: 32px;
 }
-#tartigos {
+
+#lista tr {
+    height: 32px;
+}
+
+#lista {
     border-style: none;
 }
+
 #idtbody tr:hover {
     background-color: lightgray;
 }
+
 /* icones de acessar, editar e excluir  artigo */
 #idtbody img{
     height: 30px;
     vertical-align: middle;
     margin: 0px 3px;
+}
+
+.busca {
+    width: 80%;
+    margin: auto;
+}
+
+.formulario th {
+    text-align: right;
+    vertical-align: text-top;
 }

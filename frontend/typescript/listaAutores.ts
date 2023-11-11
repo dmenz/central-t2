@@ -36,13 +36,13 @@ function exibeListaDeAutores() {
     .then(response => response.json())
     
     .then(Autores => {
-        let campos = ['nome'];
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
         for (let Autor of Autores) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
             
             appendTextCell(tr, Autor.nome);
+            appendTextCell(tr, Autor.id);
             
             // Ícones de ações:
             let tdAções = document.createElement('td') as HTMLTableCellElement;
