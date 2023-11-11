@@ -201,6 +201,7 @@ class ArtigosView(APIView):
         serializer = ArtigoGetSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class AutorView(APIView):
     @swagger_auto_schema()
     def get(self, request):
@@ -228,18 +229,10 @@ class AutoresView(APIView):
     @swagger_auto_schema(
         operation_summary='Lista todos os autores',
         operation_description="Obter informações sobre todos os autores",
-        manual_parameters = [ 
-            openapi.Parameter(
-                name='autor',
-                in_=openapi.IN_QUERY,
-                type='string',
-                required=False,),
-            ],
         request_body=None, # opcional
         responses={200: AutorSerializer(many=True)}
     )
     def get(self, request):
-        parametros = le_parametros_filtro(request)
-        queryset = Autor.objects.all().filter(**parametros)
+        queryset = Autor.objects.all()
         serializer = AutorSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
