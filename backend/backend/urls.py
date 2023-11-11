@@ -60,7 +60,6 @@ urlpatterns = [
     
     path('', views.home, name='home-page'),
     path('admin/', admin.site.urls),
-    path('MeuApp/', views.home),
     path('artigos/', include('artigos.urls')),
     path('accounts/', include('accounts.urls')),
     path('seguranca/', views.homeSec, name='sec-home'),
