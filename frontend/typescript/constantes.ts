@@ -1,3 +1,3 @@
-const backendAddress = 'http://127.0.0.1:8000/';
+const backendAddress = window.location.origin+':8000/'
 
 const tokenKeyword = 'Bearer: '
