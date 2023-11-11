@@ -78,8 +78,8 @@ class ArtigoIdView(APIView):
         Atualiza os dados de um artigo.
         O ID do artigo a ser atualizado vem pela URL.'''
         try:
-            carro = Artigo.objects.get(id=id)
-            serializer = ArtigoSerializer(carro, data=request.data)
+            artigo = Artigo.objects.get(id=id)
+            serializer = ArtigoSerializer(artigo, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status.HTTP_200_OK)
@@ -106,8 +106,8 @@ class ArtigoIdView(APIView):
         Deleta um artigo.
         O ID do artigo a ser deletado vem pela URL.'''
         try:
-            carro = Artigo.objects.get(id=id)
-            carro.delete()
+            artigo = Artigo.objects.get(id=id)
+            artigo.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Artigo.DoesNotExist:
             return Response({'msg': f'Artigo com id #{id} não existe'},
