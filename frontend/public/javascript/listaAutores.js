@@ -54,7 +54,7 @@ function exibeListaDeAutores() {
             link.appendChild(icon);
             tdAções.appendChild(link);
             let edit = document.createElement('a');
-            edit.href = "insereAutor.html?id=" + Autor.id;
+            edit.href = "atualizaAutor.html?id=" + Autor.id;
             let iconEdit = document.createElement('img');
             iconEdit.src = "images/edit.png";
             iconEdit.alt = "Editar o autor";
