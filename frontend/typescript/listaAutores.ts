@@ -1,8 +1,4 @@
 onload = function () {
-    (document.getElementById('insere') as HTMLButtonElement). 
-        addEventListener('click', () => {location.href = 'insereAutor.html'});
-    (document.getElementById('remove') as HTMLButtonElement).
-        addEventListener('click', remove);
     exibeListaDeAutores(); // exibe lista de Autores ao carregar a página
 }
 
@@ -29,7 +25,13 @@ const remove = () => {
 
 
 function exibeListaDeAutores() {
-    fetch(backendAddress + "autores/lista/")
+    const appendTextCell = (tr: HTMLTableRowElement, text: string) => {
+        let td = document.createElement('td') as HTMLTableCellElement;
+        td.appendChild(document.createTextNode(text));
+        tr.appendChild(td);
+    }
+
+    fetch(backendAddress + "artigos/autores/")
     
     .then(response => response.json())
     
@@ -39,22 +41,58 @@ function exibeListaDeAutores() {
         tbody.innerHTML = ""
         for (let Autor of Autores) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
-            for (let i = 0; i < campos.length; i++) {
-                let td = document.createElement('td') as HTMLTableCellElement;
-                let href = document.createElement('a') as HTMLAnchorElement;
-                href.setAttribute('href', 'update.html?id=' + Autor['id']);
-                let texto = document.createTextNode(Autor[campos[i]]) as Text;
-                href.appendChild(texto);
-                td.appendChild(href);
-                tr.appendChild(td);
-            }
-            let checkbox = document.createElement('input') as HTMLInputElement;
-            checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('name', 'id');
-            checkbox.setAttribute('value', Autor['id']);
-            let td = document.createElement('td') as HTMLTableCellElement;
-            td.appendChild(checkbox);
-            tr.appendChild(td);
+            
+            appendTextCell(tr, Autor.nome);
+            
+            // Ícones de ações:
+            let tdAções = document.createElement('td') as HTMLTableCellElement;
+            tdAções.style.textAlign = "center";
+
+            let link = document.createElement('a') as HTMLAnchorElement;
+            link.href = Autor.link;
+            link.target = "_blank";
+            if (Autor.link === null || Autor.link === "" || Autor.link === undefined)
+                link.style.visibility = "hidden";
+            let icon = document.createElement('img') as HTMLImageElement;
+            icon.src = "images/view.png";
+            icon.alt = "Ver textos deste autor";
+            link.appendChild(icon);
+            tdAções.appendChild(link);
+
+            let edit = document.createElement('a') as HTMLAnchorElement; 
+            edit.href = "insereAutor.html?id=" + Autor.id;
+            let iconEdit = document.createElement('img') as HTMLImageElement;
+            iconEdit.src = "images/edit.png";
+            iconEdit.alt = "Editar o autor";
+            edit.appendChild(iconEdit);
+            tdAções.appendChild(edit);
+
+            // Esse ícone ficou como parágrafo porque o clique nele não leva
+            // para outra página, e ajudou na hora de alinhar os ícones numa
+            // mesma linha.
+            let del = document.createElement('p') as HTMLParagraphElement;
+            del.style.display = "inline";
+            let deleteIcon = document.createElement('img') as HTMLImageElement;
+            deleteIcon.src = "images/bin.png";
+            deleteIcon.alt = "Remover o autor";
+            deleteIcon.style.cursor = "pointer";
+            deleteIcon.style.display = "inline";
+            deleteIcon.addEventListener('click', () => {
+                fetch(backendAddress + 'artigos/autor/' + Autor.id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': tokenKeyword + localStorage.getItem('token'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => { exibeListaDeAutores() })
+                .catch(error => { console.log(error) })
+            });
+            del.appendChild(deleteIcon);
+            tdAções.appendChild(del);
+
+            tr.appendChild(tdAções);
+            
             tbody.appendChild(tr);
         }
     })

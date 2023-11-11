@@ -1,8 +1,4 @@
 onload = function () {
-    (document.getElementById('insere') as HTMLButtonElement). 
-        addEventListener('click', () => {location.href = 'insereArtigo.html'});
-    (document.getElementById('remove') as HTMLButtonElement).
-        addEventListener('click', removeArtigo);
     exibeListaDeArtigos(); // exibe lista de Artigos ao carregar a página
 }
 
@@ -28,7 +24,6 @@ const removeArtigo = () => {
 }
 
 
-
 function exibeListaDeArtigos() {
     const appendTextCell = (tr: HTMLTableRowElement, text: string) => {
         let td = document.createElement('td') as HTMLTableCellElement;
@@ -37,7 +32,9 @@ function exibeListaDeArtigos() {
     }
 
     fetch(backendAddress + "artigos/artigos/")
+    
     .then(response => response.json())
+    
     .then(Artigos => {
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
@@ -48,14 +45,13 @@ function exibeListaDeArtigos() {
             appendTextCell(tr, Artigo.ano_publicacao);
 
             let autores = Artigo.autores
-                .map( (autor: {id: number, nome: string}) => autor.nome)
+                .map((autor: {id: number, nome: string}) => autor.nome)
                 .join('; ');
             if (autores === "")
                 autores = "Sem autores cadastrados";
             appendTextCell(tr, autores);
 
-
-            // icones de ações:
+            // Ícones de ações:
             let tdAções = document.createElement('td') as HTMLTableCellElement;
             tdAções.style.textAlign = "center";
 
@@ -78,6 +74,9 @@ function exibeListaDeArtigos() {
             edit.appendChild(iconEdit);
             tdAções.appendChild(edit);
 
+            // Esse ícone ficou como parágrafo porque o clique nele não leva
+            // para outra página, e ajudou na hora de alinhar os ícones numa
+            // mesma linha.
             let del = document.createElement('p') as HTMLParagraphElement;
             del.style.display = "inline";
             let deleteIcon = document.createElement('img') as HTMLImageElement;
@@ -100,7 +99,6 @@ function exibeListaDeArtigos() {
             tdAções.appendChild(del);
 
             tr.appendChild(tdAções);
-
             
             tbody.appendChild(tr);
         }
