@@ -160,8 +160,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = map(lambda x: 'http://'+x,
-                           os.environ.get("DJANGO_ALLOWED_HOSTS").split(" "))
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000',
+                        'http://localhost:8000',
+                        'http://central.dmnzs.com:8000',
+                        'https://central.dmnzs.com:8000']
 
 # Alternativa ao ALLOW_ALL acima:
 # CORS_ORIGIN_WHITELIST = [
