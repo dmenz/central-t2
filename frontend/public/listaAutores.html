@@ -15,19 +15,21 @@
 <body>
     <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
     <div class="conteudo">
-        <h1>Autores</h1>
-        <form action="" method="get">
-            <table border="1">
-            <thead>
-                <tr>
-                    <td>Nome</td>
-                </tr>
-            </thead>
-            <tbody id="idtbody"></tbody>
-            </table>
-            <input type="button" value="Insere autor" id="insere"/>
-            <input type="button" value="Remove autores" id="remove"/>
-        </form>
+        <h1 style="display: inline-block;">Autores</h1>
+        <!-- TODO: div abaixo só deve ser exibido se usuário estiver logado -->
+        <div style="display: inline-block;">
+            &emsp; &emsp; &emsp; &emsp;
+            <a href="insereAutor.html">CADASTRAR NOVO AUTOR</a>
+        </div>
+        <table border="1">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Ações</td>
+            </tr>
+        </thead>
+        <tbody id="idtbody"></tbody>
+        </table>
     </div>
 </body>
 

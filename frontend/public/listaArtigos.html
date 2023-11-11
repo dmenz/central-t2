@@ -15,9 +15,13 @@
 <body>
     <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
     <div class="conteudo">
-        <h1>Artigos</h1>
-        <form action="" method="get">
-            <table id="tartigos">
+        <h1 style="display: inline-block;">Artigos</h1>
+        <!-- TODO: div abaixo só deve ser exibido se usuário estiver logado -->
+        <div style="display: inline-block;">
+            &emsp; &emsp; &emsp; &emsp;
+            <a href="insereArtigo.html">CADASTRAR NOVO ARTIGO</a>
+        </div>
+        <table id="tartigos">
             <colgroup>
                 <col span="1" style="width: 60%;">
                 <col span="1" style="width: 5%;">
@@ -33,10 +37,7 @@
                 </tr>
             </thead>
             <tbody id="idtbody"></tbody>
-            </table>
-            <input type="button" value="Insere artigo" id="insere"/>
-            <input type="button" value="Remove artigos" id="remove"/>
-        </form>
+        </table>
     </div>
 </body>
 
