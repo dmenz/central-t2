@@ -67,7 +67,7 @@ function exibeListaDeArtigos() {
             tdAções.appendChild(link);
 
             let edit = document.createElement('a') as HTMLAnchorElement; 
-            edit.href = "insereArtigo.html?id=" + Artigo.id;
+            edit.href = "atualizaArtigo.html?id=" + Artigo.id;
             let iconEdit = document.createElement('img') as HTMLImageElement;
             iconEdit.src = "images/edit.png";
             iconEdit.alt = "Editar o artigo";
