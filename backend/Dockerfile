@@ -19,4 +19,6 @@ WORKDIR /app
 
 COPY . .
 RUN pip3 install -r requirements.txt --no-cache-dir
+RUN python3 manage.py collectstatic --noinput
+RUN python3 manage.py migrate
 CMD service nginx start; gunicorn backend.wsgi --bind 0.0.0.0:1337
