@@ -41,7 +41,8 @@ class ArtigoIdView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(
-        operation_summary='Atualiza artigo', operation_description="Atualizar um artigo existente",
+        operation_summary='Atualiza artigo', 
+        operation_description="Atualizar um artigo existente",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -153,7 +154,6 @@ class ArtigoView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 
 # Função para combinar as entradas dos campos de busca para filtrar os
@@ -176,7 +176,6 @@ def le_parametros_filtro(request):
 
 
 class ArtigosView(APIView):
-    
     @swagger_auto_schema(
         operation_summary='Lista todos os artigos',
         operation_description="Obter informações sobre todos os artigos",
@@ -202,12 +201,111 @@ class ArtigosView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class AutorView(APIView):
-    @swagger_auto_schema()
-    def get(self, request):
-        pass
+class AutorIdView(APIView):
+    @swagger_auto_schema(
+        operation_summary='Dados de um autor',
+        operation_description="Obter informações sobre um autor específico",
+        responses={
+            200: ArtigoSerializer(),
+            400: 'Mensagem de erro',
+        },
+        manual_parameters=[
+            openapi.Parameter('id',in_=openapi.IN_PATH,
+                default=5,
+                type=openapi.TYPE_INTEGER,
+                required=True,
+                description='id do autor na URL',
+            ),
+        ],
+    )
+    def get(self, request, id):
+        try:
+            queryset = Autor.objects.get(id=id)
+            serializer = AutorSerializer(queryset)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response({'msg': f'Autor com id #{id} não existe'},
+                            status=status.HTTP_404_NOT_FOUND)
 
-    @swagger_auto_schema()
+    @swagger_auto_schema(
+        operation_summary='Atualiza autor', 
+        operation_description="Atualizar um autor existente",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'nome': openapi.Schema(
+                    example='Autor 1', 
+                    description='Título do autor',
+                    type=openapi.TYPE_STRING,
+                    ),
+            },
+        ),
+        responses={200: AutorSerializer(), 400: AutorSerializer(), },
+        manual_parameters=[
+            openapi.Parameter('id',openapi.IN_PATH, default=41, type=openapi.TYPE_INTEGER,
+                required=True, description='id do autor na URL',),
+        ],
+    )
+    def put(self, request, id):
+        '''
+        Atualiza os dados de um autor.
+        O ID do autor a ser atualizado vem pela URL.
+        '''
+        try:
+            autor = Autor.objects.get(id=id)
+            serializer = AutorSerializer(autor, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status.HTTP_200_OK)
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        except Autor.DoesNotExist:
+            return Response({'msg': f'Autor com id #{id} não existe'},
+                            status.HTTP_404_NOT_FOUND)
+
+    @swagger_auto_schema(
+        operation_summary='Deleta autor',
+        operation_description="Deletar um autor existente",
+        responses={
+            204: 'Sem conteúdo',
+            404: 'Mensagem de erro',
+        },
+        manual_parameters=[
+            openapi.Parameter('id',openapi.IN_PATH, default=14,
+                type=openapi.TYPE_INTEGER, required=True,
+                description='id do autor na URL',),
+        ],
+    )
+    def delete(self, request, id):
+        '''
+        Deleta um autor.
+        O ID do autor a ser deletado vem pela URL.
+        '''
+        try:
+            autor = Autor.objects.get(id=id)
+            autor.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Autor.DoesNotExist:
+            return Response({'msg': f'Autor com id #{id} não existe'},
+                            status.HTTP_404_NOT_FOUND)
+
+
+class AutorView(APIView):
+    @swagger_auto_schema(
+        operation_summary='Criar autor',
+        operation_description="Criar um novo autor",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'nome': openapi.Schema(
+                    example='Autor 1', 
+                    description='Nome do autor',
+                    type=openapi.TYPE_STRING,
+                    ),
+            },
+            required=['nome'],
+        ),
+        responses={201: AutorSerializer(), 400: 'Dados errados',},
+    )
     def post(self, request):
         serializer = AutorSerializer(data=request.data)
         if serializer.is_valid():
@@ -215,14 +313,6 @@ class AutorView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @swagger_auto_schema()
-    def put(self, request):
-        pass
-
-    @swagger_auto_schema()
-    def delete(self, request):
-        pass
     
 
 class AutoresView(APIView):
