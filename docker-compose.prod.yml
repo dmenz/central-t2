@@ -7,8 +7,12 @@ services:
       - 8000:8000
     env_file:
       - /home/ubuntu/.env.prod
+    volumes:
+      - /home/ubuntu/ssl:/ssl
 
   frontend:
     build: ./frontend
     ports:
-      - 80:80
+      - 443:443
+    volumes:
+      - /home/ubuntu/ssl:/ssl
