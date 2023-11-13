@@ -43,7 +43,6 @@ function exibeListaDeAutores() {
             
             appendTextCell(tr, Autor.nome);
             
-            // TODO: valor abaixo é provisório, deve ser quantidade de artigos
             let qtd = document.createElement('td') as HTMLTableCellElement;
             qtd.style.textAlign = "center";
             qtd.innerText = Autor.n_artigos;

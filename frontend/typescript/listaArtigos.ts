@@ -1,4 +1,6 @@
 onload = function () {
+    let buscar = document.getElementById('buscar') as HTMLInputElement;
+    buscar.addEventListener('click', exibeListaDeArtigos);
     exibeListaDeArtigos(); // exibe lista de Artigos ao carregar a página
 }
 
@@ -31,14 +33,30 @@ function exibeListaDeArtigos() {
         tr.appendChild(td);
     }
 
-    fetch(backendAddress + "artigos/artigos/")
+    let titulo = document.getElementsByName('titulo')[0] as HTMLInputElement;
+    let autor = document.getElementsByName('autor')[0] as HTMLInputElement;
+    const queryString = new URLSearchParams({
+        titulo: titulo.value || "",
+        autor: autor.value || ""
+    }).toString();
+
+    fetch(backendAddress + "artigos/artigos/?" + queryString)
     
     .then(response => response.json())
     
     .then(Artigos => {
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
-        for (let Artigo of Artigos) {
+        if (Artigos.length === 0) {
+            let tr = document.createElement('tr') as HTMLTableRowElement;
+            let td = document.createElement('td') as HTMLTableCellElement;
+            td.colSpan = 4;
+            td.style.textAlign = "center";
+            td.innerText = "Sem resultados";
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+        else for (let Artigo of Artigos) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
 
             appendTextCell(tr, Artigo.nome);
