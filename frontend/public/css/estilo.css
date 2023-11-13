@@ -128,3 +128,12 @@ body {
     text-align: right;
     vertical-align: text-top;
 }
+
+table {
+    width: 100%; /* Para que a tabela com o formulário ocupe a página toda */
+}
+
+input[type="url"],
+input[type="text"] {
+    width: 80%; /* Para que a caixa de texto fique mais larga */
+}
