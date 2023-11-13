@@ -134,6 +134,7 @@ table {
 }
 
 input[type="url"],
-input[type="text"] {
+input[type="text"],
+input[type="email"] {
     width: 80%; /* Para que a caixa de texto fique mais larga */
 }
