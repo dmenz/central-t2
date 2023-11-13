@@ -46,7 +46,7 @@ function exibeListaDeAutores() {
             // TODO: valor abaixo é provisório, deve ser quantidade de artigos
             let qtd = document.createElement('td') as HTMLTableCellElement;
             qtd.style.textAlign = "center";
-            qtd.innerText = "7";
+            qtd.innerText = Autor.n_artigos;
             tr.appendChild(qtd);
             
             // Ícones de ações:
