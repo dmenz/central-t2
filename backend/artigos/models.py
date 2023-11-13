@@ -12,6 +12,10 @@ class Autor(models.Model):
         
     def __str__(self):
         return self.nome
+
+    @property
+    def n_artigos(self):
+        return self.artigo_set.count()
     
 
 class Artigo(models.Model):

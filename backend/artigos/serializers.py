@@ -4,7 +4,7 @@ from .models import Artigo, Autor
 class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
-        fields = '__all__'
+        fields = ('id', 'nome', 'n_artigos')
 
 class ArtigoGetSerializer(serializers.ModelSerializer):
     autores = AutorSerializer(many=True)
