@@ -2,6 +2,16 @@
 onload = function () {
     let buscar = document.getElementById('buscar');
     buscar.addEventListener('click', exibeListaDeArtigos);
+    let urlParams = new URLSearchParams(window.location.search);
+    let idAutor = urlParams.get('idAutor');
+    let nomeAutor = document.getElementById('autor-escolhido');
+    if (idAutor !== null && idAutor !== "")
+        fetch(backendAddress + 'artigos/autor/' + idAutor)
+            .then(response => response.json())
+            .then((autor) => nomeAutor.innerText = " de " + autor.nome);
+    else {
+        nomeAutor.innerText = "";
+    }
     exibeListaDeArtigos(); // exibe lista de Artigos ao carregar a página
 };
 const removeArtigo = () => {
@@ -20,7 +30,7 @@ const removeArtigo = () => {
         },
         body: JSON.stringify(idArray)
     })
-        .then(response => { exibeListaDeArtigos(); })
+        .then(_ => exibeListaDeArtigos())
         .catch(error => { console.log(error); });
 };
 function exibeListaDeArtigos() {
@@ -37,10 +47,16 @@ function exibeListaDeArtigos() {
     }).toString();
     fetch(backendAddress + "artigos/artigos/?" + queryString)
         .then(response => response.json())
-        .then(Artigos => {
+        .then((artigos) => {
         let tbody = document.getElementById('idtbody');
         tbody.innerHTML = "";
-        if (Artigos.length === 0) {
+        // se a página foi aberta a partir de um autor
+        let urlParams = new URLSearchParams(window.location.search);
+        let idAutor = urlParams.get('idAutor');
+        if (idAutor !== null || idAutor === "") {
+            artigos = artigos.filter(at => at.autores.some(au => au.id === parseInt(idAutor)));
+        }
+        if (artigos.length === 0) {
             let tr = document.createElement('tr');
             let td = document.createElement('td');
             td.colSpan = 4;
@@ -50,10 +66,10 @@ function exibeListaDeArtigos() {
             tbody.appendChild(tr);
         }
         else
-            for (let Artigo of Artigos) {
+            for (let Artigo of artigos) {
                 let tr = document.createElement('tr');
                 appendTextCell(tr, Artigo.nome);
-                appendTextCell(tr, Artigo.ano_publicacao);
+                appendTextCell(tr, Artigo.ano_publicacao.toString());
                 let autores = Artigo.autores
                     .map((autor) => autor.nome)
                     .join('; ');
