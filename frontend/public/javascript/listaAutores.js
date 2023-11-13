@@ -43,10 +43,7 @@ function exibeListaDeAutores() {
             let tdAções = document.createElement('td');
             tdAções.style.textAlign = "center";
             let link = document.createElement('a');
-            link.href = Autor.link;
-            link.target = "_blank";
-            if (Autor.link === null || Autor.link === "" || Autor.link === undefined)
-                link.style.visibility = "hidden";
+            link.href = "listaArtigos.html?idAutor=" + Autor.id;
             let icon = document.createElement('img');
             icon.src = "images/view.png";
             icon.alt = "Ver textos deste autor";

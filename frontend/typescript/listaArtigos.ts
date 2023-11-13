@@ -1,6 +1,18 @@
 onload = function () {
     let buscar = document.getElementById('buscar') as HTMLInputElement;
     buscar.addEventListener('click', exibeListaDeArtigos);
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let idAutor = urlParams.get('idAutor') as string;
+    let nomeAutor = document.getElementById('autor-escolhido') as HTMLSpanElement;
+    if (idAutor !== null && idAutor !== "")
+        fetch(backendAddress + 'artigos/autor/' + idAutor)
+        .then(response => response.json())
+        .then( (autor: Autor) =>  nomeAutor.innerText = " de " + autor.nome );
+    else {
+        nomeAutor.innerText = "";
+    }
+
     exibeListaDeArtigos(); // exibe lista de Artigos ao carregar a página
 }
 
@@ -21,7 +33,7 @@ const removeArtigo = () => {
         },
         body: JSON.stringify(idArray)
     })
-    .then(response => { exibeListaDeArtigos() })
+    .then(_ => exibeListaDeArtigos() )
     .catch(error => { console.log(error) })
 }
 
@@ -44,10 +56,19 @@ function exibeListaDeArtigos() {
     
     .then(response => response.json())
     
-    .then(Artigos => {
+    .then( (artigos:Artigo[]) => {
         let tbody = document.getElementById('idtbody') as HTMLTableSectionElement;
         tbody.innerHTML = ""
-        if (Artigos.length === 0) {
+
+         // se a página foi aberta a partir de um autor
+        let urlParams = new URLSearchParams(window.location.search);
+        let idAutor = urlParams.get('idAutor') as string;
+        if (idAutor !== null || idAutor === "") {
+            artigos = artigos.filter(at =>
+                         at.autores.some( au => au.id === parseInt(idAutor) )
+                    );
+        }
+        if (artigos.length === 0) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
             let td = document.createElement('td') as HTMLTableCellElement;
             td.colSpan = 4;
@@ -56,11 +77,11 @@ function exibeListaDeArtigos() {
             tr.appendChild(td);
             tbody.appendChild(tr);
         }
-        else for (let Artigo of Artigos) {
+        else for (let Artigo of artigos) {
             let tr = document.createElement('tr') as HTMLTableRowElement;
 
             appendTextCell(tr, Artigo.nome);
-            appendTextCell(tr, Artigo.ano_publicacao);
+            appendTextCell(tr, Artigo.ano_publicacao.toString());
 
             let autores = Artigo.autores
                 .map((autor: {id: number, nome: string}) => autor.nome)
