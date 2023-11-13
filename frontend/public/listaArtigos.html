@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CENTRAL</title>
     <script src="javascript/listaArtigos.js"></script>
+    <script src="javascript/accounts/permissao.js"></script>
     <script src="javascript/constantes.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/estilo.css">
@@ -16,8 +17,8 @@
     <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
     <div class="conteudo">
         <h1 style="display: inline-block;">Artigos</h1>
-        <!-- TODO: div abaixo só deve ser exibido se usuário estiver logado -->
-        <div style="display: inline-block;">
+
+        <div id="curador" class="invisivel">
             &emsp; &emsp; &emsp; &emsp;
             <a href="insereArtigo.html">CADASTRAR NOVO ARTIGO</a>
         </div>
