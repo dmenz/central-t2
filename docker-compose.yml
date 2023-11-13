@@ -8,7 +8,19 @@ services:
     env_file:
       - .env.dev
 
+    # para reload automático do django (apenas) ao salvar arquivos
+    volumes:
+      - ./backend:/app
+    command: >
+        sh -c "python3 manage.py collectstatic --noinput 
+        && python3 manage.py migrate 
+        && service nginx start 
+        && gunicorn backend.wsgi --reload --log-level info --bind 0.0.0.0:1337"
+
   frontend:
     build: ./frontend
     ports:
       - 8080:80
+    # para reload dos arquivos estáticos ao salvar
+    volumes:
+      - ./frontend/public:/app
