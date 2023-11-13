@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
         .then(response => {
         response.json().then(data => {
             const usuario = data;
+            console.log(usuario);
             if (response.ok) {
                 // token enviado no cabeçalho foi aceito pelo servidor
                 let objDiv = document.getElementById('logged');
