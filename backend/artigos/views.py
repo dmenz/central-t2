@@ -7,20 +7,28 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from rest_framework.decorators import api_view
-from rest_framework.decorators import permission_classes
-from rest_framework.decorators import authentication_classes
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
+
+
+def is_curador(user):
+    return user.groups.filter(name='curador').exists()
+
+class ApenasLeituraOuCurador(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return is_curador(request.user)
 
 class ArtigoIdView(APIView):
+    permission_classes = [ApenasLeituraOuCurador]
+
     @swagger_auto_schema(
         operation_summary='Dados de um artigo',
         operation_description="Obter informações sobre um artigo específico",
         responses={
             200: ArtigoSerializer(),
-            400: 'Mensagem de erro',
+            404: 'Artigo não encontrado',
         },
         manual_parameters=[
             openapi.Parameter('id',in_=openapi.IN_PATH,
@@ -68,7 +76,12 @@ class ArtigoIdView(APIView):
                     ),
             },
         ),
-        responses={200: ArtigoSerializer(), 400: ArtigoSerializer(), },
+        responses={
+            200: ArtigoSerializer(),
+            400: 'Parâmentros inválidos',
+            401: 'Não autorizado',
+            404: 'Artigo com id #id não existe',
+        },
         manual_parameters=[
             openapi.Parameter('id',openapi.IN_PATH, default=41, type=openapi.TYPE_INTEGER,
                 required=True, description='id do artigo na URL',),
@@ -94,7 +107,8 @@ class ArtigoIdView(APIView):
         operation_description="Deletar um artigo existente",
         responses={
             204: 'Sem conteúdo',
-            404: 'Mensagem de erro',
+            401: 'Não autorizado',
+            404: 'Artigo não encontrado',
         },
         manual_parameters=[
             openapi.Parameter('id',openapi.IN_PATH, default=14,
@@ -116,6 +130,8 @@ class ArtigoIdView(APIView):
 
 
 class ArtigoView(APIView):
+    permission_classes = [ApenasLeituraOuCurador]
+
     @swagger_auto_schema(
         operation_summary='Criar artigo',
         operation_description="Criar um novo artigo",
@@ -145,7 +161,11 @@ class ArtigoView(APIView):
             },
             required=['nome', 'ano_publicacao', 'autores'],
         ),
-        responses={201: ArtigoSerializer(), 400: 'Dados errados',},
+        responses={
+            201: ArtigoSerializer(),
+            400: 'Parâmetros inválidos',
+            401: 'Não autorizado'
+        },
     )
     def post(self, request):
         serializer = ArtigoSerializer(data=request.data)
@@ -202,12 +222,14 @@ class ArtigosView(APIView):
 
 
 class AutorIdView(APIView):
+    permission_classes = [ApenasLeituraOuCurador]
+
     @swagger_auto_schema(
         operation_summary='Dados de um autor',
         operation_description="Obter informações sobre um autor específico",
         responses={
             200: ArtigoSerializer(),
-            400: 'Mensagem de erro',
+            400: 'Parâmetros inválidos',
         },
         manual_parameters=[
             openapi.Parameter('id',in_=openapi.IN_PATH,
@@ -240,7 +262,12 @@ class AutorIdView(APIView):
                     ),
             },
         ),
-        responses={200: AutorSerializer(), 400: AutorSerializer(), },
+        responses={
+            200: AutorSerializer(),
+            400: 'Parâmentros inválidos',
+            401: 'Não autorizado',
+            404: 'Não encontrado',
+        },
         manual_parameters=[
             openapi.Parameter('id',openapi.IN_PATH, default=41, type=openapi.TYPE_INTEGER,
                 required=True, description='id do autor na URL',),
@@ -267,7 +294,8 @@ class AutorIdView(APIView):
         operation_description="Deletar um autor existente",
         responses={
             204: 'Sem conteúdo',
-            404: 'Mensagem de erro',
+            401: 'Não autorizado',
+            404: 'Autor não encontrado',
         },
         manual_parameters=[
             openapi.Parameter('id',openapi.IN_PATH, default=14,
@@ -290,6 +318,8 @@ class AutorIdView(APIView):
 
 
 class AutorView(APIView):
+    permission_classes = [ApenasLeituraOuCurador]
+
     @swagger_auto_schema(
         operation_summary='Criar autor',
         operation_description="Criar um novo autor",
@@ -304,7 +334,11 @@ class AutorView(APIView):
             },
             required=['nome'],
         ),
-        responses={201: AutorSerializer(), 400: 'Dados errados',},
+        responses={
+            201: AutorSerializer(),
+            400: 'Parâmetros inválidos',
+            401: 'Não autorizado'
+            },
     )
     def post(self, request):
         serializer = AutorSerializer(data=request.data)
