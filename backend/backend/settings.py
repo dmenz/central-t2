@@ -168,3 +168,15 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000',
 #     'http://localhost:8080',
 #     # Adicione outras origens permitidas, se necessário
 # ]
+
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
+}
+

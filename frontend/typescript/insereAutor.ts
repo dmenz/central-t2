@@ -14,7 +14,7 @@ onload = () => {
         }
         
         // envia os dados para o backend
-        fetch(backendAddress + "autores/umautor/", {
+        fetch(backendAddress + "artigos/autor/", {
                 method: 'POST', 
                 headers: {
                     'Authorization': tokenKeyword + localStorage.getItem('token'),
