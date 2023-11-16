@@ -4,13 +4,10 @@ onload = () => {
     // e preenche o formulário
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    const idPlace = document.getElementById('id') as HTMLSpanElement
+    const idPlace = document.getElementById('mensagem') as HTMLDivElement;
     
     if(id) {
-        console.log('id = ', id);
-        idPlace.innerHTML = id;
-        
-        fetch(backendAddress + 'autores/umautor/' + id + '/',
+        fetch(backendAddress + 'artigos/autor/' + id,
         {
             method: 'GET', 
             headers: {
@@ -21,11 +18,9 @@ onload = () => {
         
         .then(response => response.json())
         
-        .then(autor => {
-            let campos = ['nome', 'ano_publicacao', 'autores', 'link'];
-            for(let i=0; i<campos.length; i++) {
-                (document.getElementById(campos[i]) as HTMLInputElement).value = autor[campos[i]];
-            }
+        .then((autor : Autor) => {
+            let campoNome = document.getElementById('nome') as HTMLInputElement;
+            campoNome.value = autor.nome;
         })
         
         .catch(erro => {
@@ -49,10 +44,13 @@ onload = () => {
             data[element.name] = element.value;
         }
 
-        fetch(backendAddress + "autores/umautor/" + id + '/', {
+        fetch(backendAddress + 'artigos/autor/'+ id + '/', {
             method: 'PUT',
             body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Authorization': tokenKeyword + localStorage.getItem('token'),
+                'Content-Type': 'application/json' 
+            },
         })
         
         .then(response => {

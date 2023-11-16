@@ -9,6 +9,6 @@ urlpatterns = [
     path('artigos/', views.ArtigosView.as_view()),
 
     path('autor/', views.AutorView.as_view()),
-    path('autor/<id>', views.AutorIdView.as_view()),
+    path('autor/<id>/', views.AutorIdView.as_view()),
     path('autores/', views.AutoresView.as_view()),
 ]

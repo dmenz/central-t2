@@ -1,3 +1,4 @@
+from django.conf import empty
 from django.db import models
 from django.core.validators import MinLengthValidator
 
@@ -27,7 +28,7 @@ class Artigo(models.Model):
             verbose_name='Ano de publicação',
             validators=[MinLengthValidator(4, 'Campo precisa ter 4 dígitos.')]
             )
-    autores = models.ManyToManyField(Autor, verbose_name="Autores")
+    autores = models.ManyToManyField(Autor, verbose_name="Autores", blank=True)
     link = models.URLField(blank=True, verbose_name='Link')
 
     class Meta:
