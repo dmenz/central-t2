@@ -28,10 +28,10 @@ app_name = "backend"
 
 schema_view = yasg_schema_view(
     openapi.Info(
-        title="API de Exemplo",
+        title="API do site CENTRAL",
         default_version='v1',
-        description="Descrição da API de exemplo",
-        contact=openapi.Contact(email="meslin@puc-rio.br"),
+        description="Funcionalidades oferecidas pelo backend",
+        contact=openapi.Contact(email="danielmenezes@aluno.puc-rio.br"),
         license=openapi.License(name='GNU GPLv3'),
     ),
     public=True,
