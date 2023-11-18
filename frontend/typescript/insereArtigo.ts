@@ -1,4 +1,16 @@
-onload = () => {
+onload = async() => {
+    let todosAutores = await fetch(backendAddress + 'artigos/autores/',
+            { method: 'GET', headers: {'Content-Type': 'application/json'}})
+        .then(response => response.json()) as Autor[];
+    
+    let select = document.getElementById('autores') as HTMLSelectElement;
+    for (let autor of todosAutores) {
+        let option = document.createElement('option') as HTMLOptionElement;
+        option.value = autor.id.toString();
+        option.text = autor.nome;
+        select.add(option);
+    }
+
     (document.getElementById('insere') as HTMLButtonElement).addEventListener('click', evento => {
         evento.preventDefault();
         
@@ -6,15 +18,21 @@ onload = () => {
         const elements = (document.getElementById('meuFormulario') as HTMLFormElement).elements;
         
         // dicionário vazio
-        let data: Record<string, string> = {};
+        let data: Record<string, any> = {};
         // preenche o dicionário com os pares nome/valor
         for (let i = 0; i < elements.length; i++) {
-            const element = elements[i] as HTMLInputElement;
-            data[element.name] = element.value;
+            const element = elements[i] as HTMLInputElement | HTMLSelectElement;
+            if (element.name == 'autores') {
+                let select = element as HTMLSelectElement;
+                let selectedOptions = Array.from(select.selectedOptions);
+                data[element.name] = selectedOptions.map(o => parseInt(o.value));
+            } else {
+                data[element.name] = element.value;
+            }
         }
         
         // envia os dados para o backend
-        fetch(backendAddress + "artigos/umartigo/", {
+        fetch(backendAddress + "artigos/artigo/", {
                 method: 'POST', 
                 headers: {
                     'Authorization': tokenKeyword + localStorage.getItem('token'),
