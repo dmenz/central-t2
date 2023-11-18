@@ -33,7 +33,7 @@ body {
 
 .logo {
     padding: 1%;
-    background-color: darkgray;
+    /* background-color: darkgray; */
 }
 
 .logo img{
@@ -48,7 +48,7 @@ body {
     padding-bottom: 1%;
     padding-left: 1%;
     padding-right: 1%;
-    background-color: darkgray;
+    /* background-color: darkgray; */
     display: inline-block; /* Somente inline não respeita margens */
     width: 98%; /* Tabelas precisam da largura para expandir até o fim! */
     color: white;
@@ -65,6 +65,10 @@ body {
 
 .top_menu a:hover {
     text-decoration: underline;
+}
+
+#cabecalho {
+    background-image: url("../images/rio.jpg");
 }
 
 .conteudo {
