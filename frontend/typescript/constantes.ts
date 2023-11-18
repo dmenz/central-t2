@@ -12,6 +12,11 @@ type Artigo = {
     autores: Autor[],
 };
 
+type Usuario = {
+    username: string,
+    curador: boolean,
+}
+
 const backendAddress = window.location.protocol + '//' +
                         window.location.hostname + ':8000/'
 

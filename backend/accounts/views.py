@@ -60,7 +60,9 @@ class CustomAuthToken(ObtainAuthToken):
                 description='Nome do usuário',
                 schema=openapi.Schema(
                     type=openapi.TYPE_OBJECT,
-                    properties={'username': openapi.Schema(type=openapi.TYPE_STRING)},
+                    properties={
+                        'username': openapi.Schema(type=openapi.TYPE_STRING),
+                        'curador': openapi.Schema(type=openapi.TYPE_BOOLEAN)},
                 ),
             ),
             404: "token não encontrado",
@@ -77,11 +79,12 @@ class CustomAuthToken(ObtainAuthToken):
             token_obj = Token.objects.get(key=token)
             user = token_obj.user
             return Response(
-                {'username': user.username},
+                {'username': user.username,
+                 'curador': user.groups.filter(name='curador').exists()},
                 status=status.HTTP_200_OK)
         except (Token.DoesNotExist, AttributeError):
             return Response(
-                {'username': 'visitante'},
+                {'username': 'visitante', 'curador': False},
                 status=status.HTTP_404_NOT_FOUND)
 
     @swagger_auto_schema(
