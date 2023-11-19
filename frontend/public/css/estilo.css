@@ -38,9 +38,10 @@ body {
 
 .iframe-container iframe {
     width: 100%;
-    height: 123px; /* Adjust the height as needed */
+    height: 122px; /* Adjust the height as needed */
     border: none;
     vertical-align: top; /* An inline element adds 4px below it by default! */
+    overflow: hidden;
 }
 
 .conteudo {
