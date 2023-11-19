@@ -93,6 +93,7 @@ body {
 
 #cabecalho {
     background-image: url("../images/rio.jpg");
+    background-position: center;
 }
 
 .brasao {
