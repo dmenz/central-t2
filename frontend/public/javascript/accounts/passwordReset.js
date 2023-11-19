@@ -1,6 +1,6 @@
 "use strict";
 onload = (evento) => {
-    document.getElementById('recuperaSenha').addEventListener('submit', (evento) => {
+    document.getElementById('recuperaSenha').addEventListener('click', (evento) => {
         evento.preventDefault();
         fetch(backendAddress + 'accounts/password_reset/', {
             method: 'POST',

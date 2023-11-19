@@ -1,5 +1,5 @@
 onload = (evento) => {
-    (document.getElementById('recuperaSenha') as HTMLButtonElement).addEventListener('submit', (evento) => {
+    (document.getElementById('recuperaSenha') as HTMLButtonElement).addEventListener('click', (evento) => {
         
         evento.preventDefault();
         
