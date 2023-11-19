@@ -12,38 +12,42 @@
 </head>
 
 <body>
-    <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
-    <div class="conteudo">
-        <h1>Realize seu Login</h1>
-        <form id="meuFormulario">
-            <table>
-                <colgroup>
-                    <col span="1" style="width: 15%;">
-                    <col span="1" style="width: 85%;">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td align="right">Username:</td>
-                        <td><input type="text" name="username" id="username" style="width: auto;"></td>
-                    </tr>
-                    <tr>
-                        <td align="right">Password:</td>
-                        <td><input type="password" name="password" id="password"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2" align="left"><button id="btnLogin">Login</button></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <a href="passwordReset.html">Esqueceu a senha?</a>
-                            <div id="msg"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+    <div class="flex-container">
+        <div class="iframe-container">
+            <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
+        </div>
+        <div class="conteudo">
+            <h1>Realize seu Login</h1>
+            <form id="meuFormulario">
+                <table>
+                    <colgroup>
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 85%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td align="right">Username:</td>
+                            <td><input type="text" name="username" id="username" style="width: auto;"></td>
+                        </tr>
+                        <tr>
+                            <td align="right">Password:</td>
+                            <td><input type="password" name="password" id="password"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2" align="left"><button id="btnLogin">Login</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a href="passwordReset.html">Esqueceu a senha?</a>
+                                <div id="msg"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </div>
 </body>
 

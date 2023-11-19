@@ -14,35 +14,39 @@
 </head>
 
 <body>
-    <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
-    <div class="conteudo">
-        <h1 style="display: inline-block;">Autores</h1>
+    <div class="flex-container">
+        <div class="iframe-container">
+            <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
+        </div>
+        <div class="conteudo">
+            <h1 style="display: inline-block;">Autores</h1>
 
-        <div id="curador" class="invisivel">
-            &emsp; &emsp; &emsp; &emsp;
-            <a href="insereAutor.html">CADASTRAR NOVO AUTOR</a>
+            <div id="curador" class="invisivel">
+                &emsp; &emsp; &emsp; &emsp;
+                <a href="insereAutor.html">CADASTRAR NOVO AUTOR</a>
+            </div>
+            
+            <div style="margin: auto; display: flex; justify-content: center;">
+                <table id="lista" style="width: 70%;">
+                    <colgroup>
+                        <col span="1" style="width: 60%;">
+                        <col span="1" style="width: 5%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+                    <thead style="font-weight: bold;">
+                        <tr>
+                            <td>Nome</td>
+                            <td style="text-align: center;">Artigos</td>
+                            <td style="text-align: center;">Ações</td>
+                        </tr>
+                    </thead>
+                    <tbody id="idtbody"></tbody>
+                </table>
+            </div>
+            
+            <br>
+            
         </div>
-        
-        <div style="margin: auto; display: flex; justify-content: center;">
-            <table id="lista" style="width: 70%;">
-                <colgroup>
-                    <col span="1" style="width: 60%;">
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 15%;">
-                </colgroup>
-                <thead style="font-weight: bold;">
-                    <tr>
-                        <td>Nome</td>
-                        <td style="text-align: center;">Artigos</td>
-                        <td style="text-align: center;">Ações</td>
-                    </tr>
-                </thead>
-                <tbody id="idtbody"></tbody>
-            </table>
-        </div>
-        
-        <br>
-        
     </div>
 </body>
 

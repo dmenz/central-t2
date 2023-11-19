@@ -14,62 +14,66 @@
 </head>
 
 <body>
-    <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
-    <div class="conteudo">
-        <h1 style="display: inline-block;">Artigos<span id="autor-escolhido"></span></h1>
-
-        <div id="curador">
-            &emsp; &emsp; &emsp; &emsp;
-            <a href="insereArtigo.html">CADASTRAR NOVO ARTIGO</a>
+    <div class="flex-container">
+        <div class="iframe-container">
+            <iframe src="cabecalho.html" frameborder="0" width="100%" id="cabecalho"></iframe>
         </div>
+        <div class="conteudo">
+            <h1 style="display: inline-block;">Artigos<span id="autor-escolhido"></span></h1>
 
-        <!-- usa form apenas para que a tecla enter acione o botão de busca -->
-        <form onsubmit="return false;">
-            <fieldset class="busca">
-                <legend>Busca por título ou autor</legend>
-                <table style="width: 100%;">
-                    <colgroup>
-                        <col span="1" style="width: 10%;">
-                        <col span="1" style="width: 90%;">
-                    </colgroup>
-                    <tr>
-                        <th>Título:</th>
-                        <td><input name="titulo" type="text" style="width: 90%;"></td>
+            <div id="curador">
+                &emsp; &emsp; &emsp; &emsp;
+                <a href="insereArtigo.html">CADASTRAR NOVO ARTIGO</a>
+            </div>
+
+            <!-- usa form apenas para que a tecla enter acione o botão de busca -->
+            <form onsubmit="return false;">
+                <fieldset class="busca">
+                    <legend>Busca por título ou autor</legend>
+                    <table style="width: 100%;">
+                        <colgroup>
+                            <col span="1" style="width: 10%;">
+                            <col span="1" style="width: 90%;">
+                        </colgroup>
+                        <tr>
+                            <th>Título:</th>
+                            <td><input name="titulo" type="text" style="width: 90%;"></td>
+                        </tr>
+                        <tr>
+                            <th>Autor:</th>
+                            <td><input name="autor" type="text" style="width: 90%;"></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input id="buscar" type="submit" value="Buscar"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+
+            <br>
+
+            <table id="lista">
+                <colgroup>
+                    <col span="1" style="width: 60%;">
+                    <col span="1" style="width: 5%;">
+                    <col span="1" style="width: 25%;">
+                    <col span="1" style="width: 10%;">
+                </colgroup>
+                <thead>
+                    <tr style="font-weight: bold;">
+                        <td>Nome</td>
+                        <td>Ano</td>
+                        <td>Autores</td>
+                        <td style="text-align: center;">Ações</td>
                     </tr>
-                    <tr>
-                        <th>Autor:</th>
-                        <td><input name="autor" type="text" style="width: 90%;"></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td><input id="buscar" type="submit" value="Buscar"></td>
-                    </tr>
-                </table>
-            </fieldset>
-        </form>
+                </thead>
+                <tbody id="idtbody"></tbody>
+            </table>
 
-        <br>
+            <br>
 
-        <table id="lista">
-            <colgroup>
-                <col span="1" style="width: 60%;">
-                <col span="1" style="width: 5%;">
-                <col span="1" style="width: 25%;">
-                <col span="1" style="width: 10%;">
-            </colgroup>
-            <thead>
-                <tr style="font-weight: bold;">
-                    <td>Nome</td>
-                    <td>Ano</td>
-                    <td>Autores</td>
-                    <td style="text-align: center;">Ações</td>
-                </tr>
-            </thead>
-            <tbody id="idtbody"></tbody>
-        </table>
-
-        <br>
-
+        </div>
     </div>
 </body>
 
