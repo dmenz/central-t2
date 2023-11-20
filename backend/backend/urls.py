@@ -24,6 +24,8 @@ from rest_framework.schemas import get_schema_view
 from drf_yasg.views import get_schema_view as yasg_schema_view
 from drf_yasg import openapi
 
+import os
+
 app_name = "backend"
 
 schema_view = yasg_schema_view(
@@ -34,6 +36,7 @@ schema_view = yasg_schema_view(
         contact=openapi.Contact(email="danielmenezes@aluno.puc-rio.br"),
         license=openapi.License(name='GNU GPLv3'),
     ),
+    url=os.getenv('API_URL', 'http://localhost:8000'),
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
@@ -43,8 +46,9 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/v1/', include(routers.DefaultRouter().urls)),
     path('openapi', get_schema_view(
-        title="API para Artigos",
-        description="API para obter dados dos artigos",),
+            title="API para Artigos",
+            description="API para obter dados dos artigos",
+        ),
         name='openapi-schema'
     ),
     
