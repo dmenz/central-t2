@@ -108,20 +108,24 @@ Tela de Artigos (visão visitante):
 Tela de Autores (visão curador):
 ![Tela de Autores](telas/tela3_autores.png)
 
-### Passos realizados para o deploy do site na AWS
-1. Iniciar a máquina virtual IC2 na AWS
-2. Ir em Configurações > Segurança > Editar regras inbound
-3. Adicionar regra TCP custom e selecionar porta 8000
-4. Verificar o IP público da máquina no dashboard
-5. Adicionar o IP no ALLOWED_HOSTS do settings.py
-6. Zipar a pasta do projeto
-7. Copiar a pasta para a VM com scp
-8. Acessar a VM com ssh
-9. Criar o ambiente na VM com python, django e virtualenv
-10. Criar uma sessão tmux para conseguir manter o servidor rodando
-11. Rodar o servidor com: python3 manage.py 0.0.0.0:8000
-12. Aperta Ctrl + b e depois d para jogar a sessão tmux para background
-13. Fechar a conexão ssh
+### Como fizemos o deploy
+Decidimos, desse vez, utilizar um pipeline de deploy contínuo para atualizar 
+o site automaticamente toda vez que fizermos push na branch principal.
+Utilizamos o AWS Pipeline + AWS CodeDeploy para conectar com o nosso 
+repositório do Github e enviar o código para a nossa máquina virtual EC2.
+
+Para simplificar a nossa infrestrutura, optamos por fazer o build das imagens
+docker no próprio servidor com o docker-compose, que também é usado para 
+iniciar os containers, a cada deploy.
+
+Utilizamos variáveis de ambiente e arquivos alternativos para as configurações
+exclusivas de produção, como a configuração do SSL e secret keys.
+
+Adquirimos um certificado SSL com o serviço ZeroSSL, que emite certificados 
+gratuitos se você provar que possui controle da adminstração do domínio. 
+Finalmente, foi necessário configurar os processos  nginx do backend e do 
+frontend para utilizar o certificado.
+
 
 ### Sobre AWS Free Tier
 A Amazon oferece um plano gratuito por 12 meses para uso de vários serviços
