@@ -22,9 +22,6 @@ window.addEventListener('load', () => {
                 objDiv = (document.getElementById('unlogged') as HTMLDivElement);
                 objDiv.classList.remove('visivel');
                 objDiv.classList.add('invisivel');
-                // objDiv = (document.getElementById('curador') as HTMLDivElement);
-                // objDiv.classList.remove('teste1');
-                // objDiv.classList.add('teste2');
             } else {
                 // token enviado no cabeçalho foi rejeitado pelo servidor
                 usuario.username = 'visitante'
@@ -34,9 +31,6 @@ window.addEventListener('load', () => {
                 objDiv = (document.getElementById('logged') as HTMLDivElement);
                 objDiv.classList.remove('visivel');
                 objDiv.classList.add('invisivel');
-                // objDiv = (document.getElementById('curador') as HTMLDivElement);
-                // objDiv.classList.remove('visivelCurador');
-                // objDiv.classList.add('invisivel');
             }
             const spanElement = document.getElementById('identificacao') as HTMLSpanElement;
             spanElement.innerHTML = usuario.username;
