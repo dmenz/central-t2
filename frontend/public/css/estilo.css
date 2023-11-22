@@ -109,15 +109,6 @@ body {
 .formulario th {
     text-align: right;
     vertical-align: text-top;
-} 
-
-#containerPermissao {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
 }
 
 #lista th {
