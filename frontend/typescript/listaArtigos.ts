@@ -17,27 +17,6 @@ onload = function () {
 }
 
 
-const removeArtigo = async () => {
-    let idArray =  [];
-    let checkboxes = document.getElementsByTagName('input');
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            idArray.push(checkboxes[i].value)
-        }
-    }
-    fetch(backendAddress + 'artigos/lista/', {
-        method: 'DELETE', 
-        headers: {
-            'Authorization': tokenKeyword + localStorage.getItem('token'),
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(idArray)
-    })
-    .then(_ => exibeListaDeArtigos() )
-    .catch(error => { console.log(error) })
-}
-
-
 async function exibeListaDeArtigos() {
     const appendTextCell = (tr: HTMLTableRowElement, text: string) => {
         let td = document.createElement('td') as HTMLTableCellElement;
