@@ -17,8 +17,8 @@ async function exibeListaDeAutores() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json()) as Usuario;
-    if (!usuario.curador) {
-        document.getElementById('curador')!.style.display = "none";
+    if (usuario.curador) {
+        document.getElementById('curador')!.style.display = "inline-block";
     }
 
     let Autores = await fetch(backendAddress + "artigos/autores/")
