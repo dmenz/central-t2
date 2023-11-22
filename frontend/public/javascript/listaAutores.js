@@ -2,25 +2,6 @@
 onload = function () {
     exibeListaDeAutores(); // exibe lista de Autores ao carregar a página
 };
-const remove = () => {
-    let idArray = [];
-    let checkboxes = document.getElementsByTagName('input');
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            idArray.push(checkboxes[i].value);
-        }
-    }
-    fetch(backendAddress + 'autores/lista/', {
-        method: 'DELETE',
-        headers: {
-            'Authorization': tokenKeyword + localStorage.getItem('token'),
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(idArray)
-    })
-        .then(response => { exibeListaDeAutores(); })
-        .catch(error => { console.log(error); });
-};
 async function exibeListaDeAutores() {
     const appendTextCell = (tr, text) => {
         let td = document.createElement('td');
@@ -34,8 +15,8 @@ async function exibeListaDeAutores() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json());
-    if (!usuario.curador) {
-        document.getElementById('curador').style.display = "none";
+    if (usuario.curador) {
+        document.getElementById('curador').style.display = "inline-block";
     }
     let Autores = await fetch(backendAddress + "artigos/autores/")
         .then(response => response.json());
