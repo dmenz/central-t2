@@ -27,8 +27,8 @@ async function exibeListaDeArtigos() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json());
-    if (!usuario.curador) {
-        document.getElementById('curador').style.display = "none";
+    if (usuario.curador) {
+        document.getElementById('curador').style.display = "inline-block";
     }
     let titulo = document.getElementsByName('titulo')[0];
     let autor = document.getElementsByName('autor')[0];

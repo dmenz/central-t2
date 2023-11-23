@@ -30,8 +30,8 @@ async function exibeListaDeArtigos() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json()) as Usuario;
-    if (!usuario.curador) {
-        document.getElementById('curador')!.style.display = "none";
+    if (usuario.curador) {
+        document.getElementById('curador')!.style.display = "inline-block";
     }
 
     let titulo = document.getElementsByName('titulo')[0] as HTMLInputElement;
